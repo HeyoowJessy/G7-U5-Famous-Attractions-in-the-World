@@ -353,6 +353,17 @@ p,li{
   color:#2f6f68;
 }
 
+.reviewImg{
+  max-width:280px;
+  max-height:170px;
+  object-fit:contain;
+  display:block;
+  margin:10px auto 15px;
+  border-radius:18px;
+  border:4px solid #e8d3a2;
+  background:white;
+}
+
 .quizOptions{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -650,15 +661,15 @@ function resetWarmup(){
 const travelSlides=[
   {type:"question",text:"What do you need to bring when you travel to another country?"},
   {type:"intro",title:"Know this important information"},
-  {title:"Passport / Visa",img:"passport_visa.png",text:"Check your passport. Some countries also need a visa before you travel."},
-  {title:"Money",img:"money.png",text:"Know the currency. Bring enough cash or a card for food, tickets, and transport."},
+  {title:"Passport / Visa",img:"passport.jpg",text:"Check your passport. Some countries also need a visa before you travel."},
+  {title:"Money",img:"money.png",text:"Know the currency. Bring enough cash or a card for food, tickets, and transportation."},
   {title:"Language",img:"language.png",text:"Learn simple words like hello, thank you, excuse me, and help."},
   {title:"Culture",img:"culture.png",text:"Respect greetings, clothes, manners, and local customs."},
   {title:"Food",img:"food.png",text:"Try local food. Ask about ingredients if you have allergies."},
   {title:"Transportation",img:"transportation.png",text:"Learn how to use trains, buses, taxis, or walking routes."},
-  {title:"Weather",img:"weather.png",text:"Check the season and pack the right clothes."},
-  {title:"Attraction Rules",img:"attraction_rules.png",text:"Some places have dress codes, quiet areas, or no-photo rules."},
-  {title:"Safety",img:"safety.png",text:"Keep your things close and remember emergency numbers."}
+  {title:"Weather",img:"weather.jpg",text:"Check the season and pack the right clothes."},
+  {title:"Attraction Rules",img:"rules.png",text:"Some places have dress codes, quiet areas, or no-photo rules."},
+  {title:"Safety",img:"safety.jpg",text:"Keep your things close and remember emergency numbers."}
 ];
 
 function loadTravel(){
@@ -767,26 +778,26 @@ function showTalk(i){
 }
 
 const quiz=[
-  {q:"Which country is famous for the Taj Mahal?",a:"India",opts:["India","Spain","Brazil","Vietnam"],zoom:"The Taj Mahal is a famous attraction in India."},
-  {q:"Where can you see the Sydney Opera House?",a:"Australia",opts:["Australia","Peru","China","Taiwan"],zoom:"The Sydney Opera House is in Australia."},
-  {q:"Which country has Taipei 101?",a:"Taiwan",opts:["Thailand","Taiwan","Brazil","South Africa"],zoom:"Taipei 101 is in Taiwan."},
-  {q:"Which country is famous for Ha Long Bay?",a:"Vietnam",opts:["Vietnam","India","Spain","New Zealand"],zoom:"Ha Long Bay is in Vietnam."},
-  {q:"The Grand Palace is in which country?",a:"Thailand",opts:["Philippines","Thailand","Peru","Australia"],zoom:"The Grand Palace is in Thailand."},
-  {q:"Table Mountain is in which country?",a:"South Africa",opts:["South Africa","China","Brazil","India"],zoom:"Table Mountain is in South Africa."},
-  {q:"Chocolate Hills are in which country?",a:"Philippines",opts:["Taiwan","Philippines","Vietnam","Spain"],zoom:"Chocolate Hills are in Bohol, Philippines."},
-  {q:"Which country is famous for the Great Wall?",a:"China",opts:["China","Peru","Thailand","New Zealand"],zoom:"The Great Wall is in China."},
-  {q:"Sagrada Família is in which country?",a:"Spain",opts:["Spain","Brazil","India","Australia"],zoom:"Sagrada Família is in Spain."},
-  {q:"Christ the Redeemer is in which country?",a:"Brazil",opts:["Brazil","South Africa","Taiwan","Philippines"],zoom:"Christ the Redeemer is in Brazil."},
-  {q:"Milford Sound is in which country?",a:"New Zealand",opts:["Vietnam","New Zealand","Thailand","China"],zoom:"Milford Sound is in New Zealand."},
-  {q:"Machu Picchu is in which country?",a:"Peru",opts:["Peru","Spain","Australia","India"],zoom:"Machu Picchu is in Peru."},
-  {q:"What document do you need when you travel to another country?",a:"Passport",opts:["Passport","Notebook","Umbrella","Pencil"],zoom:"A passport is an important travel document."},
-  {q:"What may you need to enter some countries?",a:"Visa",opts:["Visa","Candy","Shoes","Camera"],zoom:"Some countries require a visa before you travel."},
-  {q:"What should you bring to buy food, tickets, and souvenirs?",a:"Money",opts:["Money","Glue","Scissors","Crayons"],zoom:"Money is needed for food, tickets, and transportation."},
-  {q:"What should you check before packing clothes?",a:"Weather",opts:["Weather","Homework","Television","Music"],zoom:"Check the weather before packing your clothes."},
-  {q:"What should you bring if you feel sick while traveling?",a:"Medicine",opts:["Medicine","Toys","Paint","Chalk"],zoom:"Medicine is useful when you feel sick."},
-  {q:"What helps travelers move from place to place?",a:"Transportation",opts:["Transportation","Decoration","Invitation","Conversation"],zoom:"Transportation includes trains, buses, taxis, and walking routes."},
-  {q:"What should travelers respect in another country?",a:"Culture",opts:["Culture","Garbage","Noise","Mistake"],zoom:"Travelers should respect local culture and customs."},
-  {q:"What should you do at attractions with special rules?",a:"Follow the rules",opts:["Follow the rules","Run loudly","Push people","Throw trash"],zoom:"Attractions may have rules like no photos, quiet areas, or dress codes."}
+  {q:"Which country is famous for the Taj Mahal?",a:"India",opts:["India","Spain","Brazil","Vietnam"],img:"india1.png",zoom:"The Taj Mahal is a famous attraction in India."},
+  {q:"Where can you see the Sydney Opera House?",a:"Australia",opts:["Australia","Peru","China","Taiwan"],img:"australia1.png",zoom:"The Sydney Opera House is in Australia."},
+  {q:"Which country has Taipei 101?",a:"Taiwan",opts:["Thailand","Taiwan","Brazil","South Africa"],img:"taiwan1.png",zoom:"Taipei 101 is in Taiwan."},
+  {q:"Which country is famous for Ha Long Bay?",a:"Vietnam",opts:["Vietnam","India","Spain","New Zealand"],img:"vietnam1.png",zoom:"Ha Long Bay is in Vietnam."},
+  {q:"The Grand Palace is in which country?",a:"Thailand",opts:["Philippines","Thailand","Peru","Australia"],img:"thailand1.png",zoom:"The Grand Palace is in Thailand."},
+  {q:"Table Mountain is in which country?",a:"South Africa",opts:["South Africa","China","Brazil","India"],img:"southafrica1.png",zoom:"Table Mountain is in South Africa."},
+  {q:"Chocolate Hills are in which country?",a:"Philippines",opts:["Taiwan","Philippines","Vietnam","Spain"],img:"philippines1.png",zoom:"Chocolate Hills are in Bohol, Philippines."},
+  {q:"Which country is famous for the Great Wall?",a:"China",opts:["China","Peru","Thailand","New Zealand"],img:"china1.png",zoom:"The Great Wall is in China."},
+  {q:"Sagrada Família is in which country?",a:"Spain",opts:["Spain","Brazil","India","Australia"],img:"spain1.png",zoom:"Sagrada Família is in Spain."},
+  {q:"Christ the Redeemer is in which country?",a:"Brazil",opts:["Brazil","South Africa","Taiwan","Philippines"],img:"brazil1.png",zoom:"Christ the Redeemer is in Brazil."},
+  {q:"Which country is famous for its dairy products?",a:"New Zealand",opts:["Vietnam","New Zealand","Thailand","China"],img:"newzealand1.png",zoom:"New Zealand is famous for dairy products like milk, butter, and cheese."},
+  {q:"Machu Picchu is in which country?",a:"Peru",opts:["Peru","Spain","Australia","India"],img:"peru1.png",zoom:"Machu Picchu is in Peru."},
+  {q:"What document do you need when you travel to another country?",a:"Passport",opts:["Passport","Notebook","Umbrella","Pencil"],img:"passport.jpg",zoom:"A passport is an important travel document."},
+  {q:"What may you need to enter some countries?",a:"Visa",opts:["Visa","Candy","Shoes","Camera"],img:"passport.jpg",zoom:"Some countries require a visa before you travel."},
+  {q:"What should you bring to buy food, tickets, and souvenirs?",a:"Money",opts:["Money","Glue","Scissors","Crayons"],img:"money.png",zoom:"Money is needed for food, tickets, and transportation."},
+  {q:"What should you check before packing clothes?",a:"Weather",opts:["Weather","Homework","Television","Music"],img:"weather.jpg",zoom:"Check the weather before packing your clothes."},
+  {q:"What should you bring if you feel sick while traveling?",a:"Medicine",opts:["Medicine","Toys","Paint","Chalk"],img:"medicine.png",zoom:"Medicine is useful when you feel sick."},
+  {q:"What helps travelers move from place to place?",a:"Transportation",opts:["Transportation","Decoration","Invitation","Conversation"],img:"transportation.png",zoom:"Transportation includes trains, buses, taxis, and walking routes."},
+  {q:"What should travelers respect in another country?",a:"Culture",opts:["Culture","Garbage","Noise","Mistake"],img:"culture.png",zoom:"Travelers should respect local culture and customs."},
+  {q:"What should you do at attractions with special rules?",a:"Follow the rules",opts:["Follow the rules","Run loudly","Push people","Throw trash"],img:"rules.png",zoom:"Attractions may have rules like no photos, quiet areas, or dress codes."}
 ];
 
 function startQuiz(){
@@ -798,7 +809,9 @@ function startQuiz(){
 function loadQuestion(){
   const item=quiz[currentQ];
 
-  document.getElementById("quizQ").textContent=`${currentQ+1}. ${item.q}`;
+  document.getElementById("quizQ").innerHTML=
+  `${currentQ+1}. ${item.q}<br><img class="reviewImg" src="${item.img}" onerror="this.style.display='none'">`;
+
   document.getElementById("feedback").textContent="";
   document.getElementById("zoomBox").classList.remove("show");
   document.getElementById("zoomBox").innerHTML="";
