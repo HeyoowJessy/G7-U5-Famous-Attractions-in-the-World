@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Famous Attractions in the World - Teacher Jessy</title>
+
+<style>
+:root{
+  --purple:#2f6f68;
+  --orange:#c49b5a;
+  --yellow:#e8d3a2;
+  --green:#3f7d58;
+  --blue:#8ecae6;
+  --pink:#6fa89d;
+  --cream:#f6f1df;
+  --dark:#263238;
+  --white:#ffffff;
+  --shadow:0 10px 24px rgba(0,0,0,.18);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:"Comic Sans MS","Trebuchet MS",Arial,sans-serif;
+  background:linear-gradient(135deg,#dfeee8,#b9dcd2 45%,#d6e8f2);
+  color:var(--dark);
+  overflow:hidden;
+}
+
+.app{display:flex;height:100vh;width:100vw;}
+
+.sidebar{
+  width:250px;
+  background:#2f5d50;
+  padding:14px;
+  overflow-y:auto;
+  border-right:6px solid #c49b5a;
+  box-shadow:var(--shadow);
+  z-index:3;
+}
+
+.brand{
+  background:linear-gradient(135deg,#3f7d58,#5f8f7d);
+  color:white;
+  border-radius:22px;
+  padding:14px;
+  text-align:center;
+  margin-bottom:12px;
+  border:4px solid #fff;
+}
+
+.brand h2{font-size:22px;margin:0}
+.brand p{font-size:14px;margin:5px 0 0}
+
+.navBtn{
+  width:100%;
+  border:0;
+  border-radius:22px;
+  padding:16px 12px;
+  margin:7px 0;
+  background:#e8d3a2;
+  color:#24453f;
+  font-size:20px;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 4px 0 rgba(0,0,0,.16);
+  text-align:left;
+  transition:.15s;
+  border:3px solid transparent;
+}
+
+.navBtn:hover,
+.navBtn.active{
+  transform:translateY(-2px);
+  border-color:#3f7d58;
+  background:#f5e7bf;
+}
+
+.main{
+  flex:1;
+  padding:20px;
+  overflow:hidden;
+  position:relative;
+}
+
+.slide{
+  display:none;
+  height:calc(100vh - 40px);
+  overflow-y:auto;
+  padding:24px;
+  background:rgba(255,255,255,.92);
+  border-radius:30px;
+  border:7px solid white;
+  box-shadow:var(--shadow);
+  position:relative;
+  background-size:cover;
+  background-position:center;
+}
+
+.slide.active{display:block}
+
+h1{
+  font-size:54px;
+  line-height:1.05;
+  margin:12px 0;
+  color:#2f6f68;
+  text-shadow:2px 2px #fff;
+}
+
+h2{
+  font-size:42px;
+  margin:8px 0 18px;
+  color:#2f6f68;
+}
+
+h3{
+  font-size:30px;
+  margin:10px 0;
+  color:#3f7d58;
+}
+
+p,li{
+  font-size:40px;
+  line-height:1.35;
+}
+
+.cover{
+  min-height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:linear-gradient(135deg,#dfeee8,#c7e6db,#d6e8f2);
+  border-radius:24px;
+  padding:30px;
+}
+
+.coverCard{
+  background:rgba(255,255,255,.92);
+  border:8px solid var(--yellow);
+  border-radius:35px;
+  padding:35px;
+  max-width:950px;
+  box-shadow:var(--shadow);
+}
+
+.mapIcons{font-size:58px;margin:18px 0}
+
+.bigBtn{
+  border:0;
+  border-radius:26px;
+  padding:18px 28px;
+  margin:8px;
+  font-size:24px;
+  font-weight:900;
+  cursor:pointer;
+  color:white;
+  background:linear-gradient(135deg,#3f7d58,#2f6f68);
+  box-shadow:0 6px 0 rgba(0,0,0,.2);
+}
+
+.orange{background:linear-gradient(135deg,#c49b5a,#9b7b45)}
+.purple{background:linear-gradient(135deg,#2f6f68,#5f8f7d)}
+.yellow{background:linear-gradient(135deg,#d9b65d,#b88a44)}
+
+.roundCard,.contentCard,.dialogueCard,.quizCard{
+  background:#f6f1df;
+  border:4px solid #c49b5a;
+  border-radius:30px;
+  padding:20px;
+  box-shadow:0 5px 14px rgba(0,0,0,.12);
+}
+
+.warmWrap{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:20px;
+  align-items:start;
+}
+
+.picGrid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(180px,1fr));
+  gap:16px;
+}
+
+.picBox{
+  min-height:205px;
+  background:#fff;
+  border:5px dashed #2f6f68;
+  border-radius:25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  cursor:pointer;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 6px 15px rgba(0,0,0,.15);
+}
+
+.picBox span{
+  font-size:28px;
+  font-weight:900;
+  color:#2f6f68;
+  position:absolute;
+  z-index:2;
+}
+
+.picBox img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:none;
+}
+
+.countryReveal{
+  font-size:40px;
+  font-weight:900;
+  color:#fff;
+  background:linear-gradient(135deg,#2f6f68,#5f8f7d);
+  border-radius:25px;
+  padding:22px;
+  margin-top:15px;
+  min-height:105px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.travelStage{
+  min-height:560px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  gap:15px;
+}
+
+.travelCard{
+  width:min(860px,95%);
+  min-height:410px;
+  background:rgba(255,255,255,.94);
+  border:7px solid var(--yellow);
+  border-radius:35px;
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  box-shadow:var(--shadow);
+}
+
+.travelCard img{
+  max-width:360px;
+  max-height:210px;
+  object-fit:contain;
+  margin:12px;
+  border-radius:20px;
+}
+
+.travelQuestion{
+  font-size:40px;
+  font-weight:900;
+  color:#2f6f68;
+}
+
+.travelTitle{
+  font-size:44px;
+  font-weight:900;
+  color:#3f7d58;
+}
+
+.travelText{
+  font-size:40px;
+  max-width:720px;
+}
+
+.slideControls{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.countryIcons{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin:12px 0;
+}
+
+.countryIcon{
+  background:white;
+  border:5px solid #2f6f68;
+  border-radius:24px;
+  padding:14px;
+  cursor:pointer;
+  box-shadow:0 5px 12px rgba(0,0,0,.16);
+  font-size:48px;
+  font-weight:900;
+  text-align:center;
+}
+
+.countryIcon div{
+  font-size:20px;
+  color:var(--dark);
+}
+
+.countryIcon img{
+  width:88px;
+  height:58px;
+  object-fit:cover;
+  border-radius:10px;
+  border:3px solid #fff;
+  display:block;
+  margin:0 auto 6px;
+  background:white;
+}
+
+.talkArea{
+  min-height:430px;
+  border-radius:30px;
+  border:6px solid white;
+  padding:24px;
+  background:rgba(255,255,255,.7);
+  background-size:cover;
+  background-position:center;
+  box-shadow:var(--shadow);
+}
+
+.dialogueOverlay{
+  background:rgba(255,255,255,.92);
+  border-radius:25px;
+  border:4px solid var(--yellow);
+  padding:18px;
+}
+
+.line{
+  font-size:40px;
+  padding:7px 10px;
+  border-radius:14px;
+  margin:5px 0;
+  background:#f0fff4;
+}
+
+.char{
+  font-weight:900;
+  color:#2f6f68;
+}
+
+.quizOptions{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:16px;
+}
+
+.opt{
+  background:white;
+  border:4px solid #8ecae6;
+  border-radius:20px;
+  padding:17px;
+  font-size:40px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.opt:hover{background:#e6f6ff}
+
+.feedback{
+  font-size:40px;
+  font-weight:900;
+  margin-top:12px;
+  min-height:44px;
+}
+
+.zoomBox{
+  margin-top:18px;
+  padding:16px;
+  border-radius:22px;
+  background:#eef8ff;
+  border:4px solid #8ecae6;
+  display:none;
+}
+
+.zoomBox.show{display:block}
+
+.floatingPicker{
+  background:#f6f1df;
+  border:5px solid #c49b5a;
+  border-radius:22px;
+  width:100%;
+  padding:12px;
+  text-align:center;
+  box-shadow:var(--shadow);
+  margin-top:10px;
+}
+
+.floatingPicker h4{
+  margin:0 0 8px;
+  font-size:18px;
+  color:#2f6f68;
+}
+
+.sideBall{
+  width:75px;
+  height:75px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#d9b65d,#b88a44);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
+  font-weight:900;
+  color:white;
+  border:5px solid white;
+  margin:0 auto 8px;
+  cursor:pointer;
+}
+
+.floatingPicker input{
+  font-size:18px;
+  width:64px;
+  border-radius:10px;
+  border:3px solid #2f6f68;
+  padding:3px;
+  text-align:center;
+}
+
+.sideZoomBtn{
+  width:100%;
+  margin-top:10px;
+  border:0;
+  border-radius:16px;
+  padding:12px;
+  font-size:22px;
+  font-weight:900;
+  color:white;
+  background:linear-gradient(135deg,#2f6f68,#5f8f7d);
+  box-shadow:0 4px 0 rgba(0,0,0,.2);
+  cursor:pointer;
+}
+
+@media(max-width:900px){
+  .sidebar{width:190px}
+  .navBtn{font-size:14px;padding:10px}
+  h1{font-size:38px}
+  h2{font-size:30px}
+  p,li{font-size:24px}
+  .warmWrap{grid-template-columns:1fr}
+  .countryIcons{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand">
+    <h2>🗺️ Explorer Lesson</h2>
+    <p>Famous Attractions</p>
+  </div>
+
+  <button class="navBtn active" onclick="showSlide(0)">1. Cover Page</button>
+  <button class="navBtn" onclick="showSlide(1)">2. Warm-up</button>
+  <button class="navBtn" onclick="showSlide(2)">3. Lesson Content</button>
+  <button class="navBtn" onclick="showSlide(3)">4. Read and Talk</button>
+  <button class="navBtn" onclick="showSlide(4)">5. Review</button>
+
+  <div class="floatingPicker">
+    <h4>Random Picker</h4>
+    <div class="sideBall" id="numberBall" onclick="pickNumber()">?</div>
+    <label>Max</label><br>
+    <input id="maxNum" type="number" value="30" min="1" max="99">
+    <button class="sideZoomBtn" onclick="showZoom()">🔍</button>
+  </div>
+</aside>
+
+<main class="main">
+
+<section class="slide active">
+  <div class="cover">
+    <div class="coverCard">
+      <div class="mapIcons">🎒 🧭 ✈️ 🌎 🗺️</div>
+      <h1>Famous Attractions<br>in the World</h1>
+      <p>Let’s explore countries, attractions, and travel practices!</p>
+      <button class="bigBtn" onclick="showSlide(1)">Start Adventure</button>
+      <h2>Prepared by: Teacher Jessy</h2>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>2. Warm-up: 4 Pics 1 Word</h2>
+  <p>Click each box to reveal a clue image. Guess the country. Then click <b>Reveal Country</b>.</p>
+  <div class="warmWrap">
+    <div>
+      <div class="picGrid" id="picGrid"></div>
+    </div>
+    <div class="roundCard">
+      <h3 id="warmTitle">Round 1</h3>
+      <button class="bigBtn purple" onclick="revealCountry()">Reveal Country</button>
+      <button class="bigBtn orange" onclick="nextWarmup()">Next Round</button>
+      <button class="bigBtn yellow" onclick="resetWarmup()">Reset Images</button>
+      <div class="countryReveal" id="countryReveal">?</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>3. Lesson Content</h2>
+  <div class="travelStage">
+    <div class="travelCard" id="travelCard"></div>
+    <div class="slideControls">
+      <button class="bigBtn orange" onclick="prevTravel()">⬅ Previous</button>
+      <button class="bigBtn purple" onclick="nextTravel()">Next ➡</button>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="talkSlide">
+  <h2>4. Read and Talk</h2>
+  <div class="countryIcons" id="countryIcons"></div>
+  <div class="talkArea" id="talkArea">
+    <div class="dialogueOverlay">
+      <h3>Choose a country to begin.</h3>
+      <p>Practice reading with your group.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>5. Review: Guess the Correct Answer</h2>
+  <div class="quizCard">
+    <button class="bigBtn purple" id="startQuizBtn" onclick="startQuiz()">Start</button>
+    <div id="quizContent" style="display:none">
+      <h3 id="quizQ">Question</h3>
+      <div class="quizOptions" id="quizOptions"></div>
+      <div class="feedback" id="feedback"></div>
+      <button class="bigBtn orange" onclick="nextQuestion()">Next Question</button>
+      <div class="zoomBox" id="zoomBox"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+const warmups=[
+  {country:"India",base:"india"},
+  {country:"Australia",base:"australia"},
+  {country:"Taiwan",base:"taiwan"},
+  {country:"Vietnam",base:"vietnam"},
+  {country:"Thailand",base:"thailand"},
+  {country:"South Africa",base:"southafrica"},
+  {country:"Philippines",base:"philippines"},
+  {country:"China",base:"china"},
+  {country:"Spain",base:"spain"},
+  {country:"Brazil",base:"brazil"},
+  {country:"New Zealand",base:"newzealand"},
+  {country:"Peru",base:"peru"}
+];
+
+const attractions={
+  India:"Taj Mahal",
+  Australia:"Sydney Opera House",
+  Taiwan:"Taipei 101",
+  Vietnam:"Ha Long Bay",
+  Thailand:"Grand Palace",
+  "South Africa":"Table Mountain",
+  Philippines:"Chocolate Hills",
+  China:"Great Wall of China",
+  Spain:"Sagrada Família",
+  Brazil:"Christ the Redeemer",
+  "New Zealand":"Milford Sound",
+  Peru:"Machu Picchu"
+};
+
+let currentWarm=0;
+let currentQ=0;
+let travelIndex=0;
+
+function showSlide(n){
+  document.querySelectorAll(".slide").forEach((s,i)=>{
+    s.classList.toggle("active",i===n);
+  });
+  document.querySelectorAll(".navBtn").forEach((b,i)=>{
+    b.classList.toggle("active",i===n);
+  });
+}
+
+function loadWarmup(){
+  const w=warmups[currentWarm];
+  document.getElementById("warmTitle").textContent=`Round ${currentWarm+1}`;
+  document.getElementById("countryReveal").textContent="?";
+  document.getElementById("picGrid").innerHTML="";
+
+  for(let i=1;i<=4;i++){
+    const box=document.createElement("div");
+    box.className="picBox";
+
+    const label=document.createElement("span");
+    label.innerHTML=`Clue ${i}<br>Click me!`;
+
+    const img=document.createElement("img");
+    img.src=`${w.base}${i}.png`;
+    img.alt=`${w.country} clue ${i}`;
+    img.onerror=function(){
+      if(this.src.endsWith(".png")){
+        this.src=`${w.base}${i}.jpg`;
+      }else{
+        this.style.display="none";
+      }
+    };
+
+    box.appendChild(label);
+    box.appendChild(img);
+
+    box.onclick=()=>{
+      img.style.display="block";
+      label.style.display="none";
+    };
+
+    document.getElementById("picGrid").appendChild(box);
+  }
+}
+
+function revealCountry(){
+  const c=warmups[currentWarm].country;
+  document.getElementById("countryReveal").innerHTML=
+  `${c}<br><span style="font-size:24px">Famous attraction: ${attractions[c]}</span>`;
+}
+
+function nextWarmup(){
+  currentWarm=(currentWarm+1)%warmups.length;
+  loadWarmup();
+}
+
+function resetWarmup(){
+  loadWarmup();
+}
+
+const travelSlides=[
+  {type:"question",text:"What do you need to bring when you travel to another country?"},
+  {type:"intro",title:"Know this important information"},
+  {title:"Passport / Visa",img:"passport_visa.png",text:"Check your passport. Some countries also need a visa before you travel."},
+  {title:"Money",img:"money.png",text:"Know the currency. Bring enough cash or a card for food, tickets, and transport."},
+  {title:"Language",img:"language.png",text:"Learn simple words like hello, thank you, excuse me, and help."},
+  {title:"Culture",img:"culture.png",text:"Respect greetings, clothes, manners, and local customs."},
+  {title:"Food",img:"food.png",text:"Try local food. Ask about ingredients if you have allergies."},
+  {title:"Transportation",img:"transportation.png",text:"Learn how to use trains, buses, taxis, or walking routes."},
+  {title:"Weather",img:"weather.png",text:"Check the season and pack the right clothes."},
+  {title:"Attraction Rules",img:"attraction_rules.png",text:"Some places have dress codes, quiet areas, or no-photo rules."},
+  {title:"Safety",img:"safety.png",text:"Keep your things close and remember emergency numbers."}
+];
+
+function loadTravel(){
+  const s=travelSlides[travelIndex];
+  const card=document.getElementById("travelCard");
+
+  if(s.type==="question"){
+    card.innerHTML=`<div class="travelQuestion">${s.text}</div>`;
+  }else if(s.type==="intro"){
+    card.innerHTML=`<div class="mapIcons">🛂 💵 🗣️ 🙏 🍲 🚕 🌦️ 📍 🧳</div><div class="travelTitle">${s.title}</div>`;
+  }else{
+    card.innerHTML=`<div class="travelTitle">${s.title}</div><img src="${s.img}" alt="${s.title}"><div class="travelText">${s.text}</div>`;
+  }
+}
+
+function nextTravel(){
+  travelIndex=(travelIndex+1)%travelSlides.length;
+  loadTravel();
+}
+
+function prevTravel(){
+  travelIndex=(travelIndex-1+travelSlides.length)%travelSlides.length;
+  loadTravel();
+}
+
+const talkCountries=[
+  {name:"Taiwan",icon:"🇹🇼",flag:"TW flag.png",bg:"TW101.png",title:"Taiwan — Taipei 101",lines:[
+    ["Mia","Wow! Taipei 101 is so tall."],
+    ["Ben","Yes. Let’s take the MRT and line up properly."],
+    ["Ana","Should we stand on the right side of the escalator?"],
+    ["Leo","Good idea. We should follow local manners."],
+    ["Mia","I will also give my seat to someone who needs it."]
+  ]},
+  {name:"Thailand",icon:"🇹🇭",flag:"TH flag.png",bg:"TH palace.png",title:"Thailand — Grand Palace",lines:[
+    ["Sam","Can I wear shorts to the Grand Palace?"],
+    ["Nina","No. Visitors should wear proper clothes."],
+    ["Tom","I brought long pants and a shirt with sleeves."],
+    ["Ella","Great. We should respect the temple rules."],
+    ["Sam","Let’s speak softly and enjoy the visit."]
+  ]},
+  {name:"India",icon:"🇮🇳",flag:"IN flag.png",bg:"IN taj.png",title:"India — Taj Mahal",lines:[
+    ["Rico","The Taj Mahal looks beautiful."],
+    ["Luna","Yes. We should walk carefully and respect the place."],
+    ["Mia","Can we take many photos?"],
+    ["Ben","Yes, but we should not disturb other visitors."],
+    ["Rico","Let’s keep the area clean too."]
+  ]},
+  {name:"Philippines",icon:"🇵🇭",flag:"PH flag.png",bg:"PH hills.png",title:"Philippines — Chocolate Hills",lines:[
+    ["Ella","The Chocolate Hills are amazing!"],
+    ["Tom","Let’s stay on the path and protect nature."],
+    ["Ana","I have a water bottle. I won’t leave trash."],
+    ["Leo","Good. Tourists should keep the place clean."],
+    ["Ella","Let’s take a group photo here."]
+  ]},
+  {name:"Brazil",icon:"🇧🇷",flag:"BR flag.png",bg:"BR Christ.png",title:"Brazil — Christ the Redeemer",lines:[
+    ["Rico","There are many tourists here."],
+    ["Luna","Let’s wait for our turn to take pictures."],
+    ["Sam","The view is beautiful!"],
+    ["Nina","Hold your bag and stay with the group."],
+    ["Rico","Okay. We should be patient and safe."]
+  ]}
+];
+
+function loadCountryIcons(){
+  const area=document.getElementById("countryIcons");
+  area.innerHTML="";
+
+  talkCountries.forEach((c,i)=>{
+    const b=document.createElement("button");
+    b.className="countryIcon";
+
+    const img=document.createElement("img");
+    img.src=c.flag;
+    img.alt=c.name+" flag";
+    img.onerror=function(){
+      this.style.display="none";
+      const emoji=document.createElement("span");
+      emoji.textContent=c.icon;
+      emoji.style.fontSize="48px";
+      b.insertBefore(emoji,b.firstChild);
+    };
+
+    const label=document.createElement("div");
+    label.textContent=c.name;
+
+    b.appendChild(img);
+    b.appendChild(label);
+    b.onclick=()=>showTalk(i);
+    area.appendChild(b);
+  });
+}
+
+function showTalk(i){
+  const c=talkCountries[i];
+  const area=document.getElementById("talkArea");
+
+  area.style.backgroundImage=
+  `linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,.12)), url('${c.bg}')`;
+
+  area.innerHTML=
+  `<div class="dialogueOverlay">
+    <h3>${c.title}</h3>
+    ${c.lines.map(l=>`<div class="line"><span class="char">${l[0]}:</span> ${l[1]}</div>`).join("")}
+    <p><b>Talk:</b> What practice should travelers remember?</p>
+  </div>`;
+}
+
+const quiz=[
+  {q:"Which country is famous for the Taj Mahal?",a:"India",opts:["India","Spain","Brazil","Vietnam"],zoom:"The Taj Mahal is a famous attraction in India."},
+  {q:"Where can you see the Sydney Opera House?",a:"Australia",opts:["Australia","Peru","China","Taiwan"],zoom:"The Sydney Opera House is in Australia."},
+  {q:"Which country has Taipei 101?",a:"Taiwan",opts:["Thailand","Taiwan","Brazil","South Africa"],zoom:"Taipei 101 is in Taiwan."},
+  {q:"Which country is famous for Ha Long Bay?",a:"Vietnam",opts:["Vietnam","India","Spain","New Zealand"],zoom:"Ha Long Bay is in Vietnam."},
+  {q:"The Grand Palace is in which country?",a:"Thailand",opts:["Philippines","Thailand","Peru","Australia"],zoom:"The Grand Palace is in Thailand."},
+  {q:"Table Mountain is in which country?",a:"South Africa",opts:["South Africa","China","Brazil","India"],zoom:"Table Mountain is in South Africa."},
+  {q:"Chocolate Hills are in which country?",a:"Philippines",opts:["Taiwan","Philippines","Vietnam","Spain"],zoom:"Chocolate Hills are in Bohol, Philippines."},
+  {q:"Which country is famous for the Great Wall?",a:"China",opts:["China","Peru","Thailand","New Zealand"],zoom:"The Great Wall is in China."},
+  {q:"Sagrada Família is in which country?",a:"Spain",opts:["Spain","Brazil","India","Australia"],zoom:"Sagrada Família is in Spain."},
+  {q:"Christ the Redeemer is in which country?",a:"Brazil",opts:["Brazil","South Africa","Taiwan","Philippines"],zoom:"Christ the Redeemer is in Brazil."},
+  {q:"Milford Sound is in which country?",a:"New Zealand",opts:["Vietnam","New Zealand","Thailand","China"],zoom:"Milford Sound is in New Zealand."},
+  {q:"Machu Picchu is in which country?",a:"Peru",opts:["Peru","Spain","Australia","India"],zoom:"Machu Picchu is in Peru."},
+  {q:"What document do you need when you travel to another country?",a:"Passport",opts:["Passport","Notebook","Umbrella","Pencil"],zoom:"A passport is an important travel document."},
+  {q:"What may you need to enter some countries?",a:"Visa",opts:["Visa","Candy","Shoes","Camera"],zoom:"Some countries require a visa before you travel."},
+  {q:"What should you bring to buy food, tickets, and souvenirs?",a:"Money",opts:["Money","Glue","Scissors","Crayons"],zoom:"Money is needed for food, tickets, and transportation."},
+  {q:"What should you check before packing clothes?",a:"Weather",opts:["Weather","Homework","Television","Music"],zoom:"Check the weather before packing your clothes."},
+  {q:"What should you bring if you feel sick while traveling?",a:"Medicine",opts:["Medicine","Toys","Paint","Chalk"],zoom:"Medicine is useful when you feel sick."},
+  {q:"What helps travelers move from place to place?",a:"Transportation",opts:["Transportation","Decoration","Invitation","Conversation"],zoom:"Transportation includes trains, buses, taxis, and walking routes."},
+  {q:"What should travelers respect in another country?",a:"Culture",opts:["Culture","Garbage","Noise","Mistake"],zoom:"Travelers should respect local culture and customs."},
+  {q:"What should you do at attractions with special rules?",a:"Follow the rules",opts:["Follow the rules","Run loudly","Push people","Throw trash"],zoom:"Attractions may have rules like no photos, quiet areas, or dress codes."}
+];
+
+function startQuiz(){
+  document.getElementById("startQuizBtn").style.display="none";
+  document.getElementById("quizContent").style.display="block";
+  loadQuestion();
+}
+
+function loadQuestion(){
+  const item=quiz[currentQ];
+
+  document.getElementById("quizQ").textContent=`${currentQ+1}. ${item.q}`;
+  document.getElementById("feedback").textContent="";
+  document.getElementById("zoomBox").classList.remove("show");
+  document.getElementById("zoomBox").innerHTML="";
+
+  const options=[...item.opts].sort(()=>Math.random()-0.5);
+  document.getElementById("quizOptions").innerHTML="";
+
+  options.forEach(opt=>{
+    const btn=document.createElement("button");
+    btn.className="opt";
+    btn.textContent=opt;
+    btn.onclick=()=>{
+      if(opt===item.a){
+        document.getElementById("feedback").textContent="✅ Correct!";
+        document.getElementById("feedback").style.color="#159447";
+      }else{
+        document.getElementById("feedback").textContent="❌ Try again!";
+        document.getElementById("feedback").style.color="#d32f2f";
+      }
+    };
+    document.getElementById("quizOptions").appendChild(btn);
+  });
+}
+
+function showZoom(){
+  const content=document.getElementById("quizContent");
+
+  if(!content || content.style.display==="none"){
+    return;
+  }
+
+  const box=document.getElementById("zoomBox");
+  box.innerHTML=`<h3>🔎 Zoom Details</h3><p>${quiz[currentQ].zoom}</p>`;
+  box.classList.add("show");
+}
+
+function nextQuestion(){
+  currentQ=(currentQ+1)%quiz.length;
+  loadQuestion();
+}
+
+function pickNumber(){
+  const max=Math.max(1,parseInt(document.getElementById("maxNum").value || "30"));
+  const ball=document.getElementById("numberBall");
+  let count=0;
+
+  const spin=setInterval(()=>{
+    ball.textContent=Math.floor(Math.random()*max)+1;
+    count++;
+    if(count>18){
+      clearInterval(spin);
+    }
+  },70);
+}
+
+loadWarmup();
+loadTravel();
+loadCountryIcons();
+</script>
+
+</body>
+</html>
